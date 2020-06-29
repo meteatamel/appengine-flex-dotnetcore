@@ -1,22 +1,39 @@
-# .NET Core 3.1 on Google Cloud Run
+# .NET Core on Google App Engine flexible environment
 
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+## Run locally
 
-.NET Core 3.1 was [released](https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1/) on December 3rd, 2019 and is a LTS release, supported for three years.
+Build:
 
-## Deploy to Cloud Run
+```sh
+dotnet build
+```
 
-[Cloud Run](https://cloud.run) allows you to run your .NET Core 3.1 app in a fully managed serverless environment.
+Run:
 
-To deploy to Cloud Run, use the button above, or the following steps:
+```sh
+dotnet run
+```
 
-* Build with `gcloud builds submit --tag gcr.io/[your-project]/dotnetcore31`
-* Deploy with `gcloud run deploy --image gcr.io/[your-project]/dotnetcore31`
+Open in your browser at `http://localhost:8080`
 
-Replacing `[your-project]` with your Google Cloud project ID.
+## Deploy to App Engine flexible environment
 
-## Running locally
+The [App Engine flexible environment](https://cloud.google.com/appengine/docs/flexible/dotnet) is based on Google Compute Engine and automatically scales your app up and down while balancing the load.
 
-* Build with `docker build -t dotnetcore31 .`
-* Start with `docker run -p 8080:8080 dotnetcore31`
-* Open in your browser at `http://localhost:8080`
+Publish:
+
+```sh
+dotnet publish -c Release
+```
+
+Deploy:
+
+```sh
+gcloud app deploy bin/Release/netcoreapp3.1/publish/app.yaml
+```
+
+View:
+
+```sh
+gcloud app browse
+```
